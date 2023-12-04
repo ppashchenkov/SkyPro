@@ -12,6 +12,6 @@ class User:
     def say_last_name(self):
         print(self.last_name)
 
-    def say_full_ame(self):
+    def say_full_name(self):
         print(self.first_name, self.last_name)
         
