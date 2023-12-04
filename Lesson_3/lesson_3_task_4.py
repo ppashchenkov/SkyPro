@@ -13,7 +13,7 @@ def draw_rect(t):
 # Рисует квадраты в цикле
 for x in range(0, 360):
     draw_rect(my_turtle)
-    my_turtle.right(1)
+    my_turtle.right(5)
 
 # Необходимо, чтобы окно не закрывалось само, а только по клику
 my_turtle.screen.exitonclick()
