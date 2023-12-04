@@ -7,3 +7,6 @@ catalog = [
     Smartphone("Apple", "iPhone12", "+7-999-777-5544"),
     Smartphone("Apple", "iPhone13", "+7-999-777-5545")
 ]
+
+for phone in catalog:
+    print(phone.model," - ",phone.model,". ",phone.number,sep="")
