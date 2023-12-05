@@ -1,0 +1,12 @@
+В функции "is_empty" считается пустой строка состоящая из одних пробелов.
+Но это же не верно!
+
+    def is_empty(self, string: str) -> bool:
+        """
+        Возвращает `True`, если строка пустая и `False` - если нет \n
+        Пример 1: `is_empty("") -> True`
+        Пример 2: `is_empty(" ") -> True`
+        Пример 3: `is_empty("SkyPro") -> False`
+        """
+        string = self.trim(string)
+        return string == ""
