@@ -9,13 +9,17 @@ open_url = "http://the-internet.herokuapp.com/add_remove_elements/"
 add_element = "button[onclick='addElement()']"
 delete_list = "button[onclick='deleteElement()']"
 
-browsers = []
+# driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+# driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
 
-for driver in browsers:
-    driver
+browsers = ['webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))',
+            'webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))']
+
+for browser in browsers:
+    driver = browser
     driver.maximize_window()
     driver.get(open_url)
     for i in range(0,5):
         driver.find_element(By.CSS_SELECTOR,add_element).click()
-
     print(f"Количество кнопок Delete = {len(driver.find_elements(By.CSS_SELECTOR, delete_list))}")
+    driver.quit()
