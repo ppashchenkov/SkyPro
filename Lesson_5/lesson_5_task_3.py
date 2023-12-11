@@ -9,10 +9,9 @@ open_url = "http://the-internet.herokuapp.com/add_remove_elements/"
 add_element = "button[onclick='addElement()']"
 delete_list = "button[onclick='deleteElement()']"
 
-chrome = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
-firefox = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-
-browsers = [chrome, firefox]
+browsers = [webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())),
+            webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+            ]
 
 for browser in browsers:
     driver = browser
