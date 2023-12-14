@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from main_page import MainPage
+from main_page_task1 import MainPage
 from datas import MyData
 
 
