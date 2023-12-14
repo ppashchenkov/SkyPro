@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from hands_data import HandsData
 
 
 class MainPage:
@@ -45,12 +44,47 @@ class MainPage:
         if zip_color == self.red_color:
             return True
 
-        # first_name_color = web_elements[3].find_element(By.CSS_SELECTOR, "#first-name").value_of_css_property("color")
-        # last_name_color = web_elements[3].find_element(By.CSS_SELECTOR, "#last-name").value_of_css_property("color")
-        # address_color = web_elements[4].find_element(By.CSS_SELECTOR, "#address").value_of_css_property("color")
-        # city_color = web_elements[4].find_element(By.CSS_SELECTOR, "#city").value_of_css_property("color")
-        # country_color = web_elements[4].find_element(By.CSS_SELECTOR, "#country").value_of_css_property("color")
-        # email_color = web_elements[5].find_element(By.CSS_SELECTOR, "#e-mail").value_of_css_property("color")
-        # phone_color = web_elements[5].find_element(By.CSS_SELECTOR, "#phone").value_of_css_property("color")
-        # job_color = web_elements[6].find_element(By.CSS_SELECTOR, "#job-position").value_of_css_property("color")
-        # company_color = web_elements[6].find_element(By.CSS_SELECTOR, "#company").value_of_css_property("color")
+    def is_first_name(self):
+        first_name_color = self.web_elements[3].find_element(By.CSS_SELECTOR, "#first-name").value_of_css_property("color")
+        if first_name_color == self.green_color:
+            return True
+
+    def is_last_name(self):
+        last_name_color = self.web_elements[3].find_element(By.CSS_SELECTOR, "#last-name").value_of_css_property("color")
+        if last_name_color == self.green_color:
+            return True
+
+    def is_address(self):
+        address_color = self.web_elements[4].find_element(By.CSS_SELECTOR, "#address").value_of_css_property("color")
+        if address_color == self.green_color:
+            return True
+
+    def is_city(self):
+        city_color = self.web_elements[4].find_element(By.CSS_SELECTOR, "#city").value_of_css_property("color")
+        if city_color == self.green_color:
+            return True
+
+    def is_country(self):
+        country_color = self.web_elements[4].find_element(By.CSS_SELECTOR, "#country").value_of_css_property("color")
+        if country_color == self.green_color:
+            return True
+
+    def is_email(self):
+        email_color = self.web_elements[5].find_element(By.CSS_SELECTOR, "#e-mail").value_of_css_property("color")
+        if email_color == self.green_color:
+            return True
+
+    def is_phone(self):
+        phone_color = self.web_elements[5].find_element(By.CSS_SELECTOR, "#phone").value_of_css_property("color")
+        if phone_color == self.green_color:
+            return True
+
+    def is_job(self):
+        job_color = self.web_elements[6].find_element(By.CSS_SELECTOR, "#job-position").value_of_css_property("color")
+        if job_color == self.green_color:
+            return True
+
+    def is_company(self):
+        company_color = self.web_elements[6].find_element(By.CSS_SELECTOR, "#company").value_of_css_property("color")
+        if company_color == self.green_color:
+            return True

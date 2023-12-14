@@ -1,4 +1,4 @@
-class HandsData:
+class MyData:
 
     def __init__(self, _first_name, _last_name, _address, _email, _phone, _zip, _city, _country, _job, _company ):
         self.first_name = _first_name
