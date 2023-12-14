@@ -1,11 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from authorization_page import AuthPage
-from main_page import MainPage
-from cart_page import CartPage
-from info_page import InfoPage
-from checkout_page import CheckoutPage
+from pages.authorization_page import AuthPage
+from pages.main_page import MainPage
+from pages.cart_page import CartPage
+from pages.info_page import InfoPage
+from pages.checkout_page import CheckoutPage
 
 def labs_shopping():
 
