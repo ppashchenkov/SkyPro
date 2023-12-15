@@ -7,6 +7,7 @@ from pages.cart_page import CartPage
 from pages.info_page import InfoPage
 from pages.checkout_page import CheckoutPage
 
+
 def labs_shopping():
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
@@ -25,5 +26,3 @@ def labs_shopping():
 
     checkout = CheckoutPage(driver)
     return checkout.get_total()
-
-

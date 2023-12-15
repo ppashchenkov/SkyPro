@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from time import sleep
 
+
 class MainPage:
     open_url = "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html"
     delay_locator = "input#delay"
