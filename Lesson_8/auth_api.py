@@ -1,6 +1,5 @@
 from time import sleep
 import requests
-import json
 
 
 class AuthApi:
@@ -16,10 +15,10 @@ class AuthApi:
         print(f"Status code = {resp.status_code}")
         if resp.status_code > 299:
             print("Getting Token: ", end='')
-            for i in range(0,120):
+            for i in range(0,25):
                 print(".", end='')
-                sleep(1)
+                sleep(5)
             resp = requests.post(self.url + '/auth/login', json=creds)
-            if resp.status_code < 300: return resp.json(["userToken"])
-
+            if resp.status_code < 300:
+                return resp.json()["userToken"]
         return resp.json()["userToken"]
