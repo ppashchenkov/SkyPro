@@ -6,19 +6,17 @@ class AuthApi:
     def __init__(self,url):
         self.url = url
 
-    def get_token(self, user='roxy', password='animal-fairy'):
-        creds = {
-            'username' : user,
-            'password' : password
+    def get_token(self, user):
+        my_token = {
+            "x-client-token": ""
         }
-        resp = requests.post(self.url + '/auth/login', json=creds)
-        print(f"Status code = {resp.status_code}")
+
+        resp = requests.post(self.url + '/auth/login', json=user)
+        print(f" status = {resp.status_code}")
         if resp.status_code > 299:
-            print("Getting Token: ", end='')
-            for i in range(0,25):
-                print(".", end='')
-                sleep(5)
-            resp = requests.post(self.url + '/auth/login', json=creds)
-            if resp.status_code < 300:
-                return resp.json()["userToken"]
-        return resp.json()["userToken"]
+            sleep(120)
+            resp = requests.post(self.url + '/auth/login', json=user)
+        my_token["x-client-token"] = resp.json()["userToken"]
+        print(f"Token = {my_token}")
+
+        return my_token

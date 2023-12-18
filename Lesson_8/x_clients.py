@@ -1,25 +1,35 @@
-import requests
-import json
+from time import sleep
 from employee_api import EmployeeApi
 from company_api import CompanyApi
 from auth_api import AuthApi
 
 base_url = "https://x-clients-be.onrender.com"
 new_company = {
-    'name' : 'My New Company',
-    'description' : 'New description for My New Company'
+    'name': 'My New Company',
+    'description': 'New description for My New Company'
 }
-employee = {
+new_employee_1 = {
             "id": 0,
             "firstName": "Peter",
             "lastName": "Petrov",
             "middleName": "Petrovich",
             "companyId": 0,
             "email": "p.petrov@mail.ru",
-            "url": "https://none.com",
+            "url": "https://petrov.com",
             "phone": "+79998887755",
             "birthdate": "1980-12-16T09:36:16.282Z",
             "isActive": True
+}
+edited_employee = {
+    "lastName": "Ivanov",
+    "email": "p.ivanov@mail.ru",
+    "url": "https://ivanov.com",
+    "phone": "+79998887757",
+    "isActive": True
+}
+user = {
+    "username": "bloom",
+    "password": "fire-fairy"
 }
 
 api_auth = AuthApi(base_url)
@@ -28,16 +38,46 @@ api_company = CompanyApi(base_url)
 
 # company_id = api_company.create_company(new_company)["id"]
 
-token = api_auth.get_token(user='roxy', password='animal-fairy')
-print(token)
+my_token = api_auth.get_token(user)
+print(f"My token {my_token['x-client-token']}")
 
-# def test_add_employee():
-#     body = api_employee.add_employee(employee)
-#     assert body["id"] > 0
+new_company_id = api_company.create_company(my_token, new_company)["id"]
+print(f"new company id = {new_company_id}")
+#
+new_employee_1["companyId"] = new_company_id
+print(f"New employee companyId = {new_employee_1['companyId']}")
 
-# def test_get_employees():
-#     resp = api_employee.get_employees(company_id)
-#     body = resp.json()
-#     # assert resp.status_code == 200
-#     assert len(body) >= 0
+my_new_employee = api_employee.add_employee(my_token, new_employee_1)
+my_new_employee_id = str(my_new_employee['id'])
+print(f" My New employee id = {my_new_employee_id}")
 
+# company_employees = api_employee.get_employees(new_company_id)
+# print(f"employees len= {len(company_employees)}")
+# print(company_employees)
+
+employee_by_id = api_employee.get_employee_by_id(my_new_employee_id)
+
+edited_employee_by_id = api_employee.edit_employee_by_id(my_new_employee_id, my_token, edited_employee)["id"]
+print(f"Edited employee by id = {edited_employee_by_id}")
+
+# switch isActive
+if employee_by_id["isActive"]:
+    print("Current employee status = True")
+else:
+    print("Current employee status = False")
+edite_status_employee = api_employee.edit_employee_by_id(my_new_employee_id, my_token, {"isActive": False})
+if edite_status_employee["isActive"]:
+    print("New employee status = True")
+else:
+    print("New employee status = False")
+
+print("")
+print(f"Pause 2 seconds")
+sleep(2)
+companies = api_company.get_company_list()
+
+for c in companies:
+    if c["name"] == new_company["name"]:
+        # print(f"Company id = {str(c['id'])}")
+        deleted = api_company.delete_company(my_token, str(c["id"]))
+        print(f"Deleted company id = {str(deleted['id'])}")
