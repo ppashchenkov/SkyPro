@@ -56,9 +56,11 @@ print(f" My New employee id = {my_new_employee_id}")
 # print(company_employees)
 
 employee_by_id = api_employee.get_employee_by_id(my_new_employee_id)
+print(f"Employee by id = {employee_by_id}")
 
-edited_employee_by_id = api_employee.edit_employee_by_id(my_new_employee_id, my_token, edited_employee)["id"]
-print(f"Edited employee by id = {edited_employee_by_id}")
+edited_employee_by_id = api_employee.edit_employee_by_id(my_new_employee_id, my_token, edited_employee)
+print(f"Edited employee by id = {edited_employee_by_id['id']}")
+print(edited_employee_by_id)
 
 # switch isActive
 if employee_by_id["isActive"]:

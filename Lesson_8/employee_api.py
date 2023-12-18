@@ -9,7 +9,7 @@ class EmployeeApi:
     def get_employees(self, company_id):
         resp =  requests.get(self.url + '/employee', params=str(company_id))
 
-        return resp.json()
+        return resp
 
     def add_employee(self, token, employee):
         my_headers = token
