@@ -89,11 +89,7 @@ def test_edit_employee():
     assert my_new_employee["id"] == my_edited_employee["id"]
 
 
-sleep(2)
 companies = api_company.get_company_list()
-
 for c in companies:
     if c["name"] == new_company["name"]:
-        # print(f"Company id = {str(c['id'])}")
         deleted = api_company.delete_company(my_token, str(c["id"]))
-        print(f"Deleted company id = {str(deleted['id'])}")
