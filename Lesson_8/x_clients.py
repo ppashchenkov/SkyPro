@@ -15,7 +15,7 @@ new_employee_1 = {
             "middleName": "Petrovich",
             "companyId": 0,
             "email": "p.petrov@mail.ru",
-            "url": "https://petrov.com",
+            "url": "https://petrov.com/image.jpg",
             "phone": "+79998887755",
             "birthdate": "1980-12-16T09:36:16.282Z",
             "isActive": True
@@ -51,9 +51,9 @@ my_new_employee = api_employee.add_employee(my_token, new_employee_1)
 my_new_employee_id = str(my_new_employee['id'])
 print(f" My New employee id = {my_new_employee_id}")
 
-# company_employees = api_employee.get_employees(new_company_id)
-# print(f"employees len= {len(company_employees)}")
-# print(company_employees)
+company_employees = api_employee.get_employees(new_company_id)
+print(f"employees len= {len(company_employees)}")
+print(company_employees)
 
 employee_by_id = api_employee.get_employee_by_id(my_new_employee_id)
 print(f"Employee by id = {employee_by_id}")

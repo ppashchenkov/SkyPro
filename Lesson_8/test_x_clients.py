@@ -15,7 +15,7 @@ new_employee_1 = {
             "middleName": "Petrovich",
             "companyId": 0,
             "email": "p.petrov@mail.ru",
-            "url": "https://petrov.com",
+            "url": "https://petrov.com/image.jpg",
             "phone": "+79998887755",
             "birthdate": "1980-12-16",
             "isActive": True
@@ -23,7 +23,7 @@ new_employee_1 = {
 edited_employee = {
     "lastName": "Ivanov",
     "email": "p.ivanov@mail.ru",
-    "url": "https://ivanov.com",
+    "url": "https://ivanov.com/image.jpg",
     "phone": "+79998887757",
     "isActive": True
 }
@@ -50,7 +50,7 @@ def test_add_employee():
 def test_get_employees():
     response = api_employee.get_employees(new_company_id)
 
-    assert response.status_code == 200
+    assert len(response) == 1
 
 def test_get_employee_by_id():
     my_new_employee = api_employee.add_employee(my_token, new_employee_1)
@@ -61,7 +61,6 @@ def test_get_employee_by_id():
     assert employee_by_id["middleName"] == new_employee_1["middleName"]
     assert employee_by_id["companyId"] == new_employee_1["companyId"]
     assert employee_by_id["email"] is None
-    # assert employee_by_id["url"] == new_employee_1["url"]
     assert employee_by_id["phone"] == new_employee_1["phone"]
     assert employee_by_id["birthdate"] == new_employee_1["birthdate"]
     assert employee_by_id["isActive"]
