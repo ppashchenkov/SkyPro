@@ -80,10 +80,10 @@ def test_edit_employee():
     my_new_employee = api_employee.add_employee(my_token, new_employee_1)
     my_edited_employee = api_employee.edit_employee_by_id(str(my_new_employee["id"]), my_token, edited_employee)
 
-    # assert my_edited_employee["lastName"] == edited_employee["lastName"]
+    assert my_edited_employee["lastName"] == edited_employee["lastName"]
     assert my_edited_employee["email"] == edited_employee["email"]
     assert my_edited_employee["url"] == edited_employee["url"]
-    # assert my_edited_employee["phone"] == edited_employee["phone"]
+    assert my_edited_employee["phone"] == edited_employee["phone"]
     assert my_edited_employee["isActive"] == edited_employee["isActive"]
     assert my_new_employee["id"] == my_edited_employee["id"]
 
