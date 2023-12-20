@@ -1,4 +1,5 @@
 from time import sleep
+import pytest
 from employee_api import EmployeeApi
 from company_api import CompanyApi
 from auth_api import AuthApi
@@ -47,10 +48,69 @@ def test_add_employee():
     assert my_new_employee["id"] > 0
 
 
+@pytest.mark.xfail(strict=True)
+@pytest.mark.parametrize('employee', [
+    ({
+            "id": 0,
+            "firstName": "",
+            "lastName": "Petrov",
+            "middleName": "Petrovich",
+            "companyId": 0,
+            "email": "p.petrov@mail.ru",
+            "url": "https://petrov.com/image.jpg",
+            "phone": "+79998887755",
+            "birthdate": "1980-12-16",
+            "isActive": True
+    }),
+    ({
+            "id": 0,
+            "firstName": "Peter",
+            "lastName": "",
+            "middleName": "Petrovich",
+            "companyId": 0,
+            "email": "p.petrov@mail.ru",
+            "url": "https://petrov.com/image.jpg",
+            "phone": "",
+            "birthdate": "1980-12-16",
+            "isActive": True
+    }),
+    ({
+            "id": 0,
+            "firstName": "Peter",
+            "lastName": "Petrov",
+            "middleName": "Petrovich",
+            "companyId": 0,
+            "email": "p.petrov@mail.ru",
+            "url": "https://petrov.com/image.jpg",
+            "phone": "+79998887755",
+            "birthdate": "",
+            "isActive": True
+    }),
+    ({
+            "id": 0,
+            "firstName": "Peter",
+            "lastName": "Petrov",
+            "middleName": "Petrovich",
+            "companyId": 0,
+            "email": "",
+            "url": "https://petrov.com/image.jpg",
+            "phone": "+79998887755",
+            "birthdate": "1980-12-16",
+            "isActive": True
+    })
+    ])
+def test_fields_add_employee(employee):
+    employee["companyId"] = new_company_id
+    my_new_employee = api_employee.add_employee(my_token, employee)
+
+    assert my_new_employee["id"] == 201
+
+
 def test_get_employees():
     response = api_employee.get_employees(new_company_id)
 
     assert len(response) == 1
+
 
 def test_get_employee_by_id():
     my_new_employee = api_employee.add_employee(my_token, new_employee_1)
