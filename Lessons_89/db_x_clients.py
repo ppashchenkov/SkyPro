@@ -58,6 +58,8 @@ engine = create_engine(url)
 connection = engine.connect()
 result = connection.execute(text("SELECT * FROM company"))
 
+print(result)
+
 # new_company_id = api_company.create_company(my_token, new_company)["id"]
 # print(f"new company id = {new_company_id}")
 # #
