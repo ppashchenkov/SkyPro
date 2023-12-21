@@ -1,14 +1,23 @@
-from time import sleep
-
-import binary
-
 from employee_api import EmployeeApi
 from company_api import CompanyApi
 from auth_api import AuthApi
+from sqlalchemy import column
 from sqlalchemy import create_engine
-
+from sqlalchemy.engine import URL
+from sqlalchemy import select
+from sqlalchemy import table
+from sqlalchemy import text
 
 db_connection_string = "postgresql://x_clients_user:[axcmq7V3QLCQwgL39GymqgasJhUlDbH4@dpg-cl53o6ql7jac73cbgi2g-a.frankfurt-postgres.render.com](mailto:axcmq7V3QLCQwgL39GymqgasJhUlDbH4@dpg-cl53o6ql7jac73cbgi2g-a.frankfurt-postgres.render.com)/x_clients"
+
+url = URL.create(
+    drivername="postgresql",
+    username="x_clients_user",
+    password="axcmq7V3QLCQwgL39GymqgasJhUlDbH4",
+    host="dpg-cl53o6ql7jac73cbgi2g-a.frankfurt-postgres.render.com",
+    database="x_clients"
+)
+
 base_url = "https://x-clients-be.onrender.com"
 new_company = {
     'name': 'My New Company',
@@ -45,9 +54,9 @@ api_company = CompanyApi(base_url)
 my_token = api_auth.get_token(user)
 print(f"My token {my_token['x-client-token']}")
 
-
-def test_select():
-    db = create_engine(db_connection_string)
+engine = create_engine(url)
+connection = engine.connect()
+result = connection.execute(text("SELECT * FROM company"))
 
 # new_company_id = api_company.create_company(my_token, new_company)["id"]
 # print(f"new company id = {new_company_id}")
