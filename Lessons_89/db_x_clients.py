@@ -2,11 +2,19 @@ from employee_api import EmployeeApi
 from company_api import CompanyApi
 from auth_api import AuthApi
 from sqlalchemy import column
-from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy import select
 from sqlalchemy import table
-from sqlalchemy import text
+from datetime import datetime
+from typing import List, Optional
+from pydantic import BaseModel
+import asyncio
+import asyncpg
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import URL, create_engine, text
+from employee_db import Employee, engine
 
 db_connection_string = "postgresql://x_clients_user:[axcmq7V3QLCQwgL39GymqgasJhUlDbH4@dpg-cl53o6ql7jac73cbgi2g-a.frankfurt-postgres.render.com](mailto:axcmq7V3QLCQwgL39GymqgasJhUlDbH4@dpg-cl53o6ql7jac73cbgi2g-a.frankfurt-postgres.render.com)/x_clients"
 
@@ -54,11 +62,50 @@ api_company = CompanyApi(base_url)
 my_token = api_auth.get_token(user)
 print(f"My token {my_token['x-client-token']}")
 
-engine = create_engine(url)
-connection = engine.connect()
-result = connection.execute(text("SELECT * FROM company"))
+new_company_id = api_company.create_company(my_token, new_company)["id"]
+print(f"new company id = {new_company_id}")
 
-print(result)
+Session = sessionmaker(bind=engine)
+
+session = Session()
+
+employee = Employee(firstname="John", lastname="Ivanov", phone="+79997775544", company_id=new_company_id)
+
+session.get(employee)
+session.commit()
+
+# engine = create_engine(url, echo=False)
+#
+#
+# def select_my_new_company():
+#     company_id = 0
+#     with engine.connect() as conn:
+#         res = conn.execute(text("select * from company where name = 'My New Company' order by id desc"))
+#         company_id = res.first()[0]
+#         # conn.commit()
+#     return company_id
+#
+#
+# my_id = select_my_new_company()
+# print(f"My_id = {my_id}")
+
+# with engine.connect() as conn:
+#     conn.execute(text(f"delete * from company where id=2767"))
+#     conn.commit()
+
+print(f"OK!")
+
+# async def run():
+#     conn = await asyncpg.connect(user='user', password='password',
+#                                  database='database', host='127.0.0.1')
+#     values = await conn.fetch(
+#         'SELECT * FROM company WHERE id = $1',
+#         10,
+#     )
+#     await conn.close()
+#
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(run())
 
 # new_company_id = api_company.create_company(my_token, new_company)["id"]
 # print(f"new company id = {new_company_id}")
@@ -70,9 +117,9 @@ print(result)
 # my_new_employee_id = str(my_new_employee['id'])
 # print(f" My New employee id = {my_new_employee_id}")
 #
-# company_employees = api_employee.get_employees(new_company_id)
-# print(f"employees len= {len(company_employees)}")
-# print(company_employees)
+company_employees = api_employee.get_employees(new_company_id)
+print(f"employees len= {len(company_employees)}")
+print(company_employees)
 #
 # employee_by_id = api_employee.get_employee_by_id(my_new_employee_id)
 # print(f"Employee by id = {employee_by_id}")
